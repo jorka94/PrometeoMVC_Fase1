@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Inicio - PROMETEO";
+}
+
+<div class="jumbotron text-center" style="background-color: #f8f9fa; border-radius: 15px; margin-top: 30px; padding: 40px;">
+    <h1 class="display-4">Sistema PROMETEO</h1>
+    <p class="lead">Gestión de Proyectos de Investigación - Fase 1</p>
+    <hr class="my-4">
+    <p>Seleccione una de las siguientes opciones para comenzar a administrar el sistema.</p>
+
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Áreas</h3>
+                    <p class="card-text">Administre las diferentes áreas de investigación del sistema.</p>
+                    @Html.ActionLink("Ir a Áreas", "Index", "Areas", null, new { @class = "btn btn-primary btn-lg" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Proyectos</h3>
+                    <p class="card-text">Gestione el registro, seguimiento y estados de los proyectos.</p>
+                    @Html.ActionLink("Ir a Proyectos", "Index", "Proyectos", null, new { @class = "btn btn-success btn-lg" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
