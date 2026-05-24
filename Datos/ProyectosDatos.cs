@@ -12,10 +12,10 @@ namespace PrometeoMVC.Datos
         {
             using (SqlConnection cn = new SqlConnection(Conexion.Cadena))
             {
-                string sql = @"INSERT INTO Proyectos (UsuarioID, NombreProyecto, TituloProyecto, Descripcion, Objetivo, AreaID, Tipo, EstadoID, FechaEnvio) 
+                string sql = @"INSERT INTO Proyectos (EstudianteID, NombreProyecto, TituloProyecto, Descripcion, Objetivo, AreaID, Tipo, EstadoID, FechaEnvio) 
                                VALUES (@uid, @nom, @tit, @des, @obj, @aid, @tip, 1, GETDATE())";
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@uid", m.UsuarioID);
+                cmd.Parameters.AddWithValue("@uid", m.EstudianteID);
                 cmd.Parameters.AddWithValue("@nom", m.NombreProyecto);
                 cmd.Parameters.AddWithValue("@tit", m.TituloProyecto);
                 cmd.Parameters.AddWithValue("@des", m.Descripcion ?? "");

@@ -12,16 +12,14 @@ namespace PrometeoMVC.Controllers
 
         public ActionResult Index()
         {
-            // aqui vamos a simular que el estudiantes logueado es el ID 1
-            int idUsuarioLogueado = 1;
+            if (Session["EstudianteID"] == null)
+                return RedirectToAction("Login", "Admin");
 
-            //  acaparamos la lista por ADO.NET
+            int idUsuarioLogueado = (int)Session["EstudianteID"];
+
             var listaCompleta = _pDatos.ListarTodo();
+            var misProyectos = listaCompleta.Where(p => p.EstudianteID == idUsuarioLogueado).ToList();
 
-            // aplicamos el LINQ (Filtramos por usuario)
-            var misProyectos = listaCompleta.Where(p => p.UsuarioID == idUsuarioLogueado).ToList();
-
-            // CArgamos las áreas para el dropdown
             ViewBag.Areas = _aDatos.Listar().Select(a => new SelectListItem
             {
                 Text = a.Nombre,
@@ -34,12 +32,21 @@ namespace PrometeoMVC.Controllers
         [HttpPost]
         public ActionResult Registrar(Proyecto modelo)
         {
-            modelo.UsuarioID = 1; // Simulado
+            if (Session["EstudianteID"] == null)
+                return RedirectToAction("Login", "Admin");
+
+            modelo.EstudianteID = (int)Session["EstudianteID"];
+
             if (_pDatos.GuardarPropuesta(modelo))
             {
+                TempData["Exito"] = "¡Proyecto registrado exitosamente!";
                 return RedirectToAction("Index");
             }
+
             return View("Index");
         }
+
+
+
     }
 }

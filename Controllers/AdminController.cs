@@ -39,12 +39,13 @@ namespace PrometeoMVC.Controllers
             using (SqlConnection cn = con.Conectar())
             {
 
-                string query = @"SELECT *
+                string query = @" SELECT *
                  FROM Usuarios
                  WHERE Correo = @Correo
                  AND Contraseña = @Contrasena
                  AND (Rol = 'Administrador'
-                 OR Rol = 'Docente')";
+                 OR Rol = 'Docente'
+                 OR Rol = 'Estudiante')";
 
                 SqlCommand cmd = new SqlCommand(query, cn);
 
@@ -63,13 +64,25 @@ namespace PrometeoMVC.Controllers
                     if (rol == "Docente")
                     {
                         Session["Docente"] = dr["Nombres"].ToString();
-
                         return RedirectToAction("Index", "Docente");
                     }
 
-                    // ar-alxrm: guardamos sesion del admin
-                    Session["Admin"] = dr["Nombres"].ToString();
+                    if (rol == "Estudiante")
+                    {
+                        Session["Estudiante"] = dr["Nombres"].ToString();
+                        int usuarioID = (int)dr["UsuarioID"];
+                        dr.Close(); // cerramos el reader
 
+                        SqlCommand cmdEst = new SqlCommand(
+                            "SELECT EstudianteID FROM Estudiantes WHERE UsuarioID = @uid", cn);
+                        cmdEst.Parameters.AddWithValue("@uid", usuarioID);
+                        Session["EstudianteID"] = (int)cmdEst.ExecuteScalar();
+
+                        return RedirectToAction("Index", "Estudiante");
+                    }
+
+                    // guardamos sesion del admin
+                    Session["Admin"] = dr["Nombres"].ToString();
                     return RedirectToAction("Index");
 
                 }

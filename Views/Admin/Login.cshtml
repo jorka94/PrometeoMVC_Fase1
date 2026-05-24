@@ -1,90 +1,73 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
     <meta name="viewport" content="width=device-width" />
-
-    <title>Login</title>
-
+    <title>Login - Sistema Prometeo</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #2ab5a0, #1a7a6e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
+        .card {
+            border: none;
+            border-radius: 16px;
+        }
+
+        .btn-prometeo {
+            background-color: #2ab5a0;
+            color: white;
+            border: none;
+        }
+
+            .btn-prometeo:hover {
+                background-color: #239e8b;
+                color: white;
+            }
+
+        .form-control:focus {
+            border-color: #2ab5a0;
+            box-shadow: 0 0 0 0.2rem rgba(42,181,160,0.25);
+        }
+
+        .titulo {
+            color: #2ab5a0;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
-<body class="bg-light">
-
-    <div class="container mt-5">
-
-        <div class="row justify-content-center">
-
-            <div class="col-md-4">
-
-                <div class="card shadow p-4">
-
-                    <h3 class="text-center mb-4">
-                        ¡Bienvenido!
-                        <br><h4></h4>favor ingresa con tus credenciales segun perfil!</h4>
-                       
-                    </h3>
-
-                    @if (ViewBag.Error != null)
-                    {
-                        <div class="alert alert-danger">
-                            @ViewBag.Error
-                        </div>
-                    }
-
-                    <form method="post">
-
-                        <div class="mb-3">
-
-                            <label>
-                                <br>
-                                Correo
-                            </label>
-
-                            <input type="email"
-                                   name="correo"
-                                   class="form-control"
-                                   required />
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label>
-                                Contraseña
-                            </label>
-
-                            <input type="password"
-                                   name="contrasena"
-                                   class="form-control"
-                                   required />
-
-                        </div>
-
-                        <button type="submit"
-                                class="btn btn-dark w-100">
-
-                            Ingresar
-
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-
+<body>
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 420px;">
+        <div class="text-center mb-4">
+            <h2 class="titulo">Sistema Prometeo</h2>
+            <p class="text-muted small">Ingresa con tus credenciales según tu perfil</p>
         </div>
 
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Correo</label>
+                <input type="email" name="correo" class="form-control" placeholder="correo@ejemplo.com" required />
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-bold">Contraseña</label>
+                <input type="password" name="contrasena" class="form-control" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn btn-prometeo w-100 py-2 fw-bold">
+                Ingresar
+            </button>
+        </form>
     </div>
-
 </body>
-
 </html>

@@ -9,19 +9,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #2ab5a0;">
         <div class="container">
-            @Html.ActionLink("Sistema de Registros PROMETEO Fase 1", "Index", "Areas", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-      
-                    <li>@Html.ActionLink("Áreas de Investigación    |", "Index", "Areas")</li>
-                    <li>@Html.ActionLink("Proyectos |", "Index", "Proyectos")</li>
-                </ul>
+            <span class="navbar-brand" style="color: white; font-weight: bold;">Sistema Prometeo</span>
+            <div class="ml-auto">
+                @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Admin", null, new { @class = "btn btn-outline-light" })
             </div>
         </div>
     </nav>

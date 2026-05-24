@@ -10,6 +10,8 @@ namespace PrometeoMVC.Models
     {
         public int ProyectoID { get; set; }
         public int EstudianteID { get; set; }
+        public int UsuarioID { get; set; }
+
         public int Tipo { get; set; }
 
         public int EstadoID { get; set; }
