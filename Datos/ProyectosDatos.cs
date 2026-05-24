@@ -42,7 +42,7 @@ namespace PrometeoMVC.Datos
                     lista.Add(new Proyecto
                     {
                         ProyectoID = (int)dr["ProyectoID"],
-                        UsuarioID = (int)dr["UsuarioID"],
+                        UsuarioID = (int)dr["EstudianteID"],
                         NombreProyecto = dr["NombreProyecto"].ToString(),
                         Estado = dr["EstadoNombre"].ToString(),
                         FechaEnvio = (DateTime)dr["FechaEnvio"]
