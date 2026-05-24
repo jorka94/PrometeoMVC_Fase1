@@ -57,10 +57,10 @@ namespace PrometeoMVC.Controllers
             {
                 using (SqlConnection cn = con.Conectar())
                 {
-                    string sql = "INSERT INTO Proyectos (EstudianteID, NombreProyecto, TituloProyecto, Descripcion, Objetivo, AreaID, Tipo, EstadoID)" +
-                        "VALUES(@EstudianteID, @NombreProyecto, @TituloProyecto, @Descripcion,  @Objetivo, @AreaID, @Tipo , @EstadoID)";
+                    string sql = "INSERT INTO Proyectos (UsuarioID, NombreProyecto, TituloProyecto, Descripcion, Objetivo, AreaID, Tipo, EstadoID)" +
+                        "VALUES(@UsuarioID, @NombreProyecto, @TituloProyecto, @Descripcion,  @Objetivo, @AreaID, @Tipo , @EstadoID)";
                     SqlCommand cmd = new SqlCommand(sql, cn);
-                    cmd.Parameters.AddWithValue("@EstudianteID", modelo.EstudianteID);
+                    cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
                     cmd.Parameters.AddWithValue("@NombreProyecto", modelo.NombreProyecto);
                     cmd.Parameters.AddWithValue("@TituloProyecto", modelo.TituloProyecto);
                     cmd.Parameters.AddWithValue("@Descripcion", modelo.Descripcion);
