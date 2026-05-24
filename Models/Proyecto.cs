@@ -9,23 +9,28 @@ namespace PrometeoMVC.Models
     public class Proyecto
     {
         public int ProyectoID { get; set; }
-        public int UsuarioID { get; set; } // FK a la tabla Usuarios
+        public int EstudianteID { get; set; }
+        public int Tipo { get; set; }
 
-        [Required(ErrorMessage = "El nombre es obligatorio")]
+        public int EstadoID { get; set; }
+
         public string NombreProyecto { get; set; }
 
+        public string Objetivo { get; set; }
+
         [Required(ErrorMessage = "El título es obligatorio")]
+        [Display(Name = "Título del Proyecto")]
         public string TituloProyecto { get; set; }
 
         public string Descripcion { get; set; }
-        public string Objetivo { get; set; }
-        public int AreaID { get; set; }
-        public string Tipo { get; set; } 
-        public int EstadoID { get; set; }
 
-        // esto para mostrar los nombres en las tabls (JOINs)
+        [Display(Name = "Area de Investigacion")]
+        public int AreaID { get; set; }
+
+ 
         public string Estado { get; set; }
-        public string AreaNombre { get; set; }
+
+        [Display(Name = "Fecha de Envío")]
         public DateTime FechaEnvio { get; set; }
     }
 }
