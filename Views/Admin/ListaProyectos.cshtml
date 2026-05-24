@@ -1,0 +1,117 @@
+﻿@model IEnumerable<PrometeoMVC.Models.Proyecto>
+
+@{
+    ViewBag.Title = "Reporte de Proyectos";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4">
+            Reporte de Proyectos
+        </h2>
+
+        <!-- ar-alxrm: filtros y busqueda usando LINQ -->
+        <form method="get" class="mb-4">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <select name="estado" class="form-control">
+
+                        <option value="">
+                            -- Filtrar por Estado --
+                        </option>
+
+                        <option value="Pendiente">
+                            Pendiente
+                        </option>
+
+                        <option value="En revisión">
+                            En revisión
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <input type="text"
+                           name="buscar"
+                           class="form-control"
+                           placeholder="Buscar proyecto..." />
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button type="submit"
+                            class="btn btn-dark">
+
+                        Filtrar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Proyecto</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+
+                        <td>
+                            @item.ProyectoID
+                        </td>
+
+                        <td>
+                            @item.NombreProyecto
+                        </td>
+
+                        <td>
+                            @item.TituloProyecto
+                        </td>
+
+                        <td>
+                            @item.Descripcion
+                        </td>
+
+                        <td>
+                            @item.Estado
+                        </td>
+
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
