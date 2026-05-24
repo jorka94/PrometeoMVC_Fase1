@@ -1,0 +1,144 @@
+@model IEnumerable<PrometeoMVC.Models.Proyecto>
+
+@{
+    ViewBag.Title = "Panel Docente";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h2>
+                Panel Docente
+            </h2>
+
+            <a href="/Docente/CerrarSesion"
+               class="btn btn-danger">
+                Cerrar Sesión
+            </a>
+
+        </div>
+
+        <div class="alert alert-info">
+            Bienvenido docente:
+            <strong>
+                @Session["Docente"]
+            </strong>
+        </div>
+
+        <div class="row mb-4">
+
+            <div class="col-md-3 mb-2">
+                <div class="border rounded p-3">
+                    <h5>Total</h5>
+                    <h3>@ViewBag.Total</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-2">
+                <div class="border rounded p-3">
+                    <h5>Pendientes</h5>
+                    <h3>@ViewBag.Pendientes</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-2">
+                <div class="border rounded p-3">
+                    <h5>Aprobados</h5>
+                    <h3>@ViewBag.Aprobados</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-2">
+                <div class="border rounded p-3">
+                    <h5>Rechazados</h5>
+                    <h3>@ViewBag.Rechazados</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <form method="get" class="mb-4">
+
+            <div class="row">
+
+                <div class="col-md-4 mb-2">
+
+                    <select name="estado" class="form-control">
+
+                        <option value="">-- Todos los estados --</option>
+                        <option value="Pendiente" @(ViewBag.Estado == "Pendiente" ? "selected" : "")>Pendiente</option>
+                        <option value="En revisión" @(ViewBag.Estado == "En revisión" ? "selected" : "")>En revisión</option>
+                        <option value="Aprobado" @(ViewBag.Estado == "Aprobado" ? "selected" : "")>Aprobado</option>
+                        <option value="Rechazado" @(ViewBag.Estado == "Rechazado" ? "selected" : "")>Rechazado</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-5 mb-2">
+
+                    <input type="text"
+                           name="buscar"
+                           class="form-control"
+                           value="@ViewBag.Buscar"
+                           placeholder="Buscar por nombre o título" />
+
+                </div>
+
+                <div class="col-md-3 mb-2">
+
+                    <button type="submit"
+                            class="btn btn-dark w-100">
+                        Filtrar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Proyecto</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProyectoID</td>
+                        <td>@item.NombreProyecto</td>
+                        <td>@item.TituloProyecto</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Estado</td>
+                        <td>
+                            @if (item.FechaEnvio.Year > 1)
+                            {
+                                @item.FechaEnvio.ToShortDateString()
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

@@ -58,6 +58,15 @@ namespace PrometeoMVC.Controllers
                 if (dr.Read())
                 {
 
+                    string rol = dr["Rol"].ToString();
+
+                    if (rol == "Docente")
+                    {
+                        Session["Docente"] = dr["Nombres"].ToString();
+
+                        return RedirectToAction("Index", "Docente");
+                    }
+
                     // ar-alxrm: guardamos sesion del admin
                     Session["Admin"] = dr["Nombres"].ToString();
 

@@ -111,6 +111,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
+    <Compile Include="Controllers\DocenteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Datos\Conexion.cs" />
@@ -182,6 +183,7 @@
     <Content Include="Views\Admin\ListaProyectos.cshtml" />
     <Content Include="Views\Admin\ListaUsuarios.cshtml" />
     <Content Include="Views\Admin\CrearUsuario.cshtml" />
+    <Content Include="Views\Docente\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
