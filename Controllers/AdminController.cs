@@ -24,6 +24,15 @@ namespace PrometeoMVC.Controllers
                 return RedirectToAction("Login");
             }
 
+            // Actualizar automaticamente proyectos de Borrador a En revision
+            using (SqlConnection cn = con.Conectar())
+            {
+                string query = "UPDATE Proyectos SET EstadoID = 3 WHERE EstadoID = 1";
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
             return View();
         }
 
@@ -76,7 +85,17 @@ namespace PrometeoMVC.Controllers
                         SqlCommand cmdEst = new SqlCommand(
                             "SELECT EstudianteID FROM Estudiantes WHERE UsuarioID = @uid", cn);
                         cmdEst.Parameters.AddWithValue("@uid", usuarioID);
-                        Session["EstudianteID"] = (int)cmdEst.ExecuteScalar();
+                        object result = cmdEst.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            Session["EstudianteID"] = (int)result;
+                        }
+                        else
+                        {
+                            ViewBag.Error = "El usuario estudiante no tiene un registro en la tabla Estudiantes. Contacte al administrador.";
+                            return View("Login");
+                        }
 
                         return RedirectToAction("Index", "Estudiante");
                     }
@@ -155,11 +174,14 @@ namespace PrometeoMVC.Controllers
             // ar-alxrm: aqui aplicamos filtro LINQ por estado
             if (!string.IsNullOrEmpty(estado))
             {
-
-                lista = lista
-                        .Where(x => x.Estado == estado)
-                        .ToList();
-
+                if (estado == "Pendientes")
+                {
+                    lista = lista.Where(x => x.Estado == "Enviado" || x.Estado == "En revision").ToList();
+                }
+                else
+                {
+                    lista = lista.Where(x => x.Estado == estado).ToList();
+                }
             }
 
             // ar-alxrm: filtro LINQ por nombre del proyecto
@@ -323,6 +345,30 @@ namespace PrometeoMVC.Controllers
                 cn.Open();
 
                 cmd.ExecuteNonQuery();
+
+                // Si el rol es Estudiante, crear registro en tabla Estudiantes
+                if (modelo.Rol == "Estudiante")
+                {
+                    cn.Close();
+                    cn.Open();
+
+                    // Obtener el UsuarioID recién creado
+                    string getIDQuery = "SELECT TOP 1 UsuarioID FROM Usuarios WHERE Correo = @Correo ORDER BY UsuarioID DESC";
+                    SqlCommand getIDCmd = new SqlCommand(getIDQuery, cn);
+                    getIDCmd.Parameters.AddWithValue("@Correo", modelo.Correo);
+                    int nuevoUsuarioID = (int)getIDCmd.ExecuteScalar();
+
+                    // Crear registro en Estudiantes con valores por defecto
+                    string insertEstudiante = @"
+                        INSERT INTO Estudiantes (UsuarioID, Nombres, Apellidos, Carnet, CarreraID, CicloID)
+                        VALUES (@UsuarioID, @Nombres, @Apellidos, 'PENDIENTE', 1, 1)";
+                    
+                    SqlCommand estCmd = new SqlCommand(insertEstudiante, cn);
+                    estCmd.Parameters.AddWithValue("@UsuarioID", nuevoUsuarioID);
+                    estCmd.Parameters.AddWithValue("@Nombres", modelo.Nombres);
+                    estCmd.Parameters.AddWithValue("@Apellidos", modelo.Apellidos);
+                    estCmd.ExecuteNonQuery();
+                }
 
             }
 

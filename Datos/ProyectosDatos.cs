@@ -12,8 +12,8 @@ namespace PrometeoMVC.Datos
         {
             using (SqlConnection cn = new SqlConnection(Conexion.Cadena))
             {
-                string sql = @"INSERT INTO Proyectos (EstudianteID, NombreProyecto, TituloProyecto, Descripcion, Objetivo, AreaID, Tipo, EstadoID, FechaEnvio) 
-                               VALUES (@uid, @nom, @tit, @des, @obj, @aid, @tip, 1, GETDATE())";
+                string sql = @"INSERT INTO Proyectos (EstudianteID, NombreProyecto, TituloProyecto, Descripcion, Objetivo, AreaID, Tipo, EstadoID, FechaEnvio)
+                               VALUES (@uid, @nom, @tit, @des, @obj, @aid, @tip, 3, GETDATE())";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.AddWithValue("@uid", m.EstudianteID);
                 cmd.Parameters.AddWithValue("@nom", m.NombreProyecto);

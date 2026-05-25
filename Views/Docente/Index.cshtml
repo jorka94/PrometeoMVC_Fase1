@@ -69,10 +69,8 @@
                 <div class="col-md-4 mb-2">
                     <select name="estado" class="form-control">
                         <option value="">-- Todos los estados --</option>
-                        <option value="Pendiente" @(ViewBag.Estado == "Borrador" ? "selected" : "")>Borrador</option>
-                        <option value="En revisión" @(ViewBag.Estado == "Enviado" ? "selected" : "")>Enviado</option>
-                        <option value="Aprobado" @(ViewBag.Estado == "En revision" ? "selected" : "")>En revision</option>
-                        <option value="Rechazado" @(ViewBag.Estado == "Aprobado" ? "selected" : "")>Aprobado</option>
+                        <option value="Pendientes" @(ViewBag.Estado == "Pendientes" ? "selected" : "")>Pendientes</option>
+                        <option value="Aprobado" @(ViewBag.Estado == "Aprobado" ? "selected" : "")>Aprobado</option>
                         <option value="Rechazado" @(ViewBag.Estado == "Rechazado" ? "selected" : "")>Rechazado</option>
                     </select>
                 </div>
@@ -113,13 +111,24 @@
                             }
                         </td>
                         <td>
-                          <a href="/Docente/Aprobar/@item.ProyectoID" 
-                           class="btn btn-sm btn-success me-1"
-                           onclick="return confirm('¿Aprobar este proyecto?')">Aprobar</a>
-                          <a href="/Docente/Rechazar/@item.ProyectoID" 
-                           class="btn btn-sm btn-danger me-1"
-                           onclick="return confirm('¿Rechazar este proyecto?')">Rechazar</a>
-                          <a href="/Docente/Observar/@item.ProyectoID" 
+                          @if (item.Estado == "Aprobado")
+                          {
+                              <span class="badge bg-success">Aprobado</span>
+                          }
+                          else if (item.Estado == "Rechazado")
+                          {
+                              <span class="badge bg-danger">Rechazado</span>
+                          }
+                          else
+                          {
+                              <a href="/Docente/Aprobar/@item.ProyectoID"
+                               class="btn btn-sm btn-success me-1"
+                               onclick="return confirm('Aprobar este proyecto?')">Aprobar</a>
+                              <a href="/Docente/Rechazar/@item.ProyectoID"
+                               class="btn btn-sm btn-danger me-1"
+                               onclick="return confirm('Rechazar este proyecto?')">Rechazar</a>
+                          }
+                          <a href="/Docente/Observar/@item.ProyectoID"
                           class="btn btn-sm btn-warning">Ver</a>
                          </td>
 

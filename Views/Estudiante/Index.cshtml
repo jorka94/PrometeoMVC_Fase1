@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PrometeoMVC.Models.Proyecto>
+@model IEnumerable<PrometeoMVC.Models.Proyecto>
 @{ ViewBag.Title = "Panel Estudiante"; }
 
 <div class="container mt-4">
@@ -16,7 +16,7 @@
     <div class="card shadow-sm border-0 mb-5">
         <div class="card-header bg-white py-3">
             <h2 style="color: #48C9B0;">Estudiante - Crear proyecto</h2>
-            <p class="text-muted small">Completa los campos para iniciar el proceso de evaluación.</p>
+            <p class="text-muted small">Completa los campos para iniciar el proceso de evaluacion.</p>
         </div>
         <div class="card-body">
             @using (Html.BeginForm("Registrar", "Estudiante", FormMethod.Post))
@@ -24,7 +24,7 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Nombre del Proyecto</label>
-                        <input type="text" name="NombreProyecto" class="form-control" placeholder="Ej: Sistema de Gestión..." required>
+                        <input type="text" name="NombreProyecto" class="form-control" placeholder="Ej: Sistema de Gestion..." required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Tipo de Proyecto</label>
@@ -34,15 +34,15 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Título del Proyecto</label>
-                        <input type="text" name="TituloProyecto" class="form-control" placeholder="Título formal..." required>
+                        <label class="form-label fw-bold">Titulo del Proyecto</label>
+                        <input type="text" name="TituloProyecto" class="form-control" placeholder="Titulo formal..." required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Área de Investigación</label>
+                        <label class="form-label fw-bold">Area de Investigacion</label>
                         @Html.DropDownList("AreaID", (List<SelectListItem>)ViewBag.Areas, "Seleccione...", new { @class = "form-select", @required = "required" })
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">Descripción General</label>
+                        <label class="form-label fw-bold">Descripcion General</label>
                         <textarea name="Descripcion" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="col-md-6">
@@ -64,7 +64,7 @@
             <tr>
                 <th>Proyecto</th>
                 <th>Estado Actual</th>
-                <th>Fecha de Envío</th>
+                <th>Fecha de Envio</th>
                 <th>Observaciones</th>
             </tr>
         </thead>
@@ -73,9 +73,26 @@
             {
                 <tr>
                     <td class="fw-bold">@item.NombreProyecto</td>
-                    <td><span class="badge @(item.Estado == "Aprobado" ? "bg-success" : "bg-warning text-dark")">@item.Estado</span></td>
+                    <td>
+                        @if (item.Estado == "Aprobado")
+                        {
+                            <span class="badge bg-success">@item.Estado</span>
+                        }
+                        else if (item.Estado == "Rechazado")
+                        {
+                            <span class="badge bg-danger">@item.Estado</span>
+                        }
+                        else if (item.Estado == "Enviado")
+                        {
+                            <span class="badge bg-warning text-dark">@item.Estado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@item.Estado</span>
+                        }
+                    </td>
                     <td>@item.FechaEnvio.ToShortDateString()</td>
-                    <td class="text-muted small">Sin observaciones aún</td>
+                    <td class="text-muted small">Sin observaciones aun</td>
                 </tr>
             }
         </tbody>

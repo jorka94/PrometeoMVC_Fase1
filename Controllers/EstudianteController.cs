@@ -39,7 +39,7 @@ namespace PrometeoMVC.Controllers
 
             if (_pDatos.GuardarPropuesta(modelo))
             {
-                TempData["Exito"] = "¡Proyecto registrado exitosamente!";
+                TempData["Exito"] = "Proyecto registrado exitosamente!";
                 return RedirectToAction("Index");
             }
 
