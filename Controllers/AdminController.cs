@@ -308,7 +308,7 @@ namespace PrometeoMVC.Controllers
                     Nombres,
                     Apellidos,
                     Correo,
-                    Contrasena,
+                    Contraseña,
                     Rol
                 )
                 VALUES
